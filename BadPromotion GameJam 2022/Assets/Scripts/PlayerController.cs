@@ -12,9 +12,16 @@ public class PlayerController : MonoBehaviour
 
     [Space]
 
+    [Header("Collider info")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundDistance = 0.2f;
     [SerializeField] private LayerMask ground;
+
+    [Space]
+
+    [Header("Token stats")]
+    [SerializeField] private GameObject tokenPrefab;
+    [SerializeField] private float tokenVelocity;
 
     private CharacterController characterController;
     private readonly PlayerState state;
@@ -63,6 +70,15 @@ public class PlayerController : MonoBehaviour
 
         if(isGrounded && Input.GetButtonDown("Jump"))
             dir.y += Mathf.Sqrt(jumpForce * -2f * gravityValue);
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Vector3 pos = transform.position;
+            pos.x += transform.forward.x;
+            GameObject token = Instantiate(tokenPrefab, pos, transform.rotation);
+            token.GetComponent<Rigidbody>().velocity = new Vector3(tokenVelocity * transform.forward.x, 0, 0);
+            Destroy(token, 2);
+        }
     }
 
     private void FixedUpdate()
