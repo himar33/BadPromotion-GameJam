@@ -2,7 +2,7 @@ Shader "Unlit/shader"
 {
     Properties
     {
-        _MainTex("Texture", 2D) = "white" {}
+        [NoScaleOffset] _MainTex("Texture", 2D) = "white" {}
         _Color("Color", Color) = (1,1,1,1)
         _Gloss("Gloss", Float) = 1
     }
@@ -65,7 +65,7 @@ Shader "Unlit/shader"
                 return o;
             }
 
-            float3 CalculateLight(float3 normal)
+            float3 CalculateDirLight(float3 normal)
             {
                 float3 lightDir = _WorldSpaceLightPos0.xyz;
 
@@ -81,6 +81,47 @@ Shader "Unlit/shader"
                 return lightIntensity * lightColor;
             }
 
+            float3 CalculatePointLight(float3 fragPos, float3 normal, int i)
+            {
+                float3 position = normalize(unity_LightPosition[i]).xyz;
+                half4 color = unity_LightColor[i];
+                half4 att = unity_LightAtten[i];
+
+                float3 lightDir = normalize(position - fragPos);
+
+                // Diffuse shading
+                float diff = max(dot(normal, lightDir), 0.0);
+
+                //if (diff < csp.a) diff = 0.25f;
+                //else if (diff < csp.b) diff = csp.b;
+                //else if (diff < csp.c) diff = csp.c;
+                //else diff = csp.d;
+
+                // Specular shading
+                //vec3 reflectDir = reflect(-lightDir, normal);
+                //float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+                //spec = step(0.5f, spec);
+
+                // Attenuation
+                float distance = length(fragPos - position);
+                //float attenuation = 1.0 / (1 + light.constant + light.lin * distance + light.quadratic * (distance * distance));
+                float attenuation = att;
+                //attenuation *= light.intensity;
+
+                //float3 ambient = light.ambient /** material.diffuse*/ * color;
+                //float3 diffuse = diffuse * diff /** material.diffuse*/;
+                //vec3 specular = light.specular * spec /** material.specular*/;
+
+                float3 ambient = color;
+                float3 diffuse = diff;
+                ambient *= attenuation;
+                diffuse *= attenuation;
+                //specular *= attenuation;
+
+                return (ambient + diffuse /*+ specular*/);
+
+            }
+
             fixed4 frag(VertexOutput o) : SV_Target
             {
                 // sample the texture
@@ -91,7 +132,12 @@ Shader "Unlit/shader"
 
                 // Because of the interpolators from the pipeline, normals arrive not normalized
                 float3 normal = normalize(o.normals);                
-                float3 light = CalculateLight(normal);
+                float3 light = CalculateDirLight(normal);
+                
+                for (int i = 0; i < 8; ++i)
+                {
+                    light += CalculatePointLight(o.vertex, normal, i);
+                }
 
                 // Specular lightning
                 //float3 camPos = _WorldSpaceCameraPos;
