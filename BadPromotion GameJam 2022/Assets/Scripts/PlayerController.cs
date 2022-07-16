@@ -214,7 +214,7 @@ public class PlayerController : MonoBehaviour
     {
         // Play animation
 
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(3);
     }
 
     public float GetLife()

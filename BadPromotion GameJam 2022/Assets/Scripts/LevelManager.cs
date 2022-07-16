@@ -29,6 +29,12 @@ public class LevelManager : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == player)
-            SceneManager.LoadScene(1);
+        {
+            if(SceneManager.GetActiveScene().name == "SampleScene")
+                SceneManager.LoadScene(0); 
+            else
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);            
+        }
+            
     }
 }
