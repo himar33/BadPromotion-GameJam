@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Audio")]
     [SerializeField] private AudioClip[] sfxClips;
+    [SerializeField] private AudioClip[] jumpSFX;
 
     private CharacterController characterController;
     private AudioManager audio;
@@ -101,8 +102,11 @@ public class PlayerController : MonoBehaviour
         //anim.SetFloat("speed", dir.x);
         //anim.SetBool("movingRight", dir.x > 0 ? true : false);
 
-        if(isGrounded && Input.GetButtonDown("Jump"))
+        if (isGrounded && Input.GetButtonDown("Jump"))
+        {
             dir.y += Mathf.Sqrt(jumpForce * -2f * gravityValue);
+            audio.PlayRandomClip(jumpSFX);
+        }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
