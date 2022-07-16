@@ -41,7 +41,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject tokenPrefab;
     [SerializeField] private float tokenVelocity;
 
+    [Space]
+
+    [Header("Audio")]
+    [SerializeField] private AudioClip[] sfxClips;
+
     private CharacterController characterController;
+    private AudioManager audio;
     private float currPlayerSpeed;
     private PlayerState state;
     private float currRollTime;
@@ -54,16 +60,9 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        if (TryGetComponent<CharacterController>(out characterController))
-        {
-            anim = GetComponent<Animator>();
-            Debug.Log("Everything fine!");
-        }
-        else
-        {
-            Debug.Log("Need a Character Controller!");
-        }
-
+        anim = GetComponent<Animator>();
+        characterController = GetComponent<CharacterController>();
+        audio = GetComponent<AudioManager>();
         state = PlayerState.MOVE;
         currPlayerSpeed = walkSpeed;
     }
@@ -80,7 +79,7 @@ public class PlayerController : MonoBehaviour
             default:
                 break;
         }
-        collectablesText.text = collectables.ToString();
+        if(collectablesText != null) collectablesText.text = collectables.ToString();
     }
 
     private void HandleMovement()
@@ -160,6 +159,7 @@ public class PlayerController : MonoBehaviour
     {
         if(other.tag == "Collectable")
         {
+            audio.PlayClip(sfxClips[0]);
             collectables++;
             Destroy(other.gameObject);
         }
