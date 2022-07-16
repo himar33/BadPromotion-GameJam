@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     [Space]
 
     [SerializeField] private float jumpForce = 1.0f;
+    [SerializeField] private bool doubleJump = false;
     [SerializeField] private float gravityValue = -9.81f;
     [SerializeField] private int life = 50;
     [SerializeField] private int damage = 5;
@@ -41,7 +42,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject tokenPrefab;
     [SerializeField] private float tokenVelocity;
 
+    [Space]
+
+    [Header("Audio")]
+    [SerializeField] private AudioClip[] sfxClips;
+    [SerializeField] private AudioClip[] jumpSFX;
+    [SerializeField] private AudioClip[] tokenSFX;
+
     private CharacterController characterController;
+    private AudioManager audio;
     private float currPlayerSpeed;
     private PlayerState state;
     private float currRollTime;
@@ -54,16 +63,9 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        if (TryGetComponent<CharacterController>(out characterController))
-        {
-            anim = GetComponent<Animator>();
-            Debug.Log("Everything fine!");
-        }
-        else
-        {
-            Debug.Log("Need a Character Controller!");
-        }
-
+        anim = GetComponent<Animator>();
+        characterController = GetComponent<CharacterController>();
+        audio = GetComponent<AudioManager>();
         state = PlayerState.MOVE;
         currPlayerSpeed = walkSpeed;
     }
@@ -80,12 +82,13 @@ public class PlayerController : MonoBehaviour
             default:
                 break;
         }
-        collectablesText.text = collectables.ToString();
+        if(collectablesText != null) collectablesText.text = collectables.ToString();
     }
 
     private void HandleMovement()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, ground, QueryTriggerInteraction.Ignore);
+        if (isGrounded) doubleJump = false;
 
         if (isGrounded && dir.y < 0)
         {
@@ -102,11 +105,24 @@ public class PlayerController : MonoBehaviour
         //anim.SetFloat("speed", dir.x);
         //anim.SetBool("movingRight", dir.x > 0 ? true : false);
 
-        if(isGrounded && Input.GetButtonDown("Jump"))
-            dir.y += Mathf.Sqrt(jumpForce * -2f * gravityValue);
+        if(Input.GetButtonDown("Jump"))
+        {
+            if(isGrounded)
+            {
+                dir.y += Mathf.Sqrt(jumpForce * -2f * gravityValue);
+                audio.PlayRandomClip(jumpSFX);
+            }
+            else if (!doubleJump)
+            {
+                doubleJump = true;
+                dir.y = Mathf.Sqrt(jumpForce * -1.5f * gravityValue);
+                audio.PlayRandomClip(jumpSFX);
+            }
+        }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
+            audio.PlayRandomClip(tokenSFX);
             Vector3 pos = transform.position;
             pos.x += transform.forward.x;
             GameObject token = Instantiate(tokenPrefab, pos, transform.rotation);
@@ -160,6 +176,7 @@ public class PlayerController : MonoBehaviour
     {
         if(other.tag == "Collectable")
         {
+            audio.PlayClip(sfxClips[0]);
             collectables++;
             Destroy(other.gameObject);
         }
