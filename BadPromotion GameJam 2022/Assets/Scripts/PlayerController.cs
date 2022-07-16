@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private AudioClip[] sfxClips;
     [SerializeField] private AudioClip[] jumpSFX;
+    [SerializeField] private AudioClip[] tokenSFX;
 
     private CharacterController characterController;
     private AudioManager audio;
@@ -110,6 +111,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
+            audio.PlayRandomClip(tokenSFX);
             Vector3 pos = transform.position;
             pos.x += transform.forward.x;
             GameObject token = Instantiate(tokenPrefab, pos, transform.rotation);
