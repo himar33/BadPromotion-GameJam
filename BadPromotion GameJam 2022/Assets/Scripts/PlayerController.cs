@@ -27,11 +27,15 @@ public class PlayerController : MonoBehaviour
     private readonly PlayerState state;
     private bool isGrounded;
     private Vector3 dir;
+    private float chargeTime;
+
+    private Animator anim;
 
     private void Awake()
     {
         if (TryGetComponent<CharacterController>(out characterController))
         {
+            anim = GetComponent<Animator>();
             Debug.Log("Everything fine!");
         }
         else
@@ -66,7 +70,13 @@ public class PlayerController : MonoBehaviour
         dir.x = Input.GetAxis("Horizontal") * playerSpeed;
 
         if (dir.x != 0)
+        {
+            //anim.Play("Idle");
             transform.forward = new Vector3(dir.x, 0, 0);
+        }
+
+        //anim.SetFloat("speed", dir.x);
+        //anim.SetBool("movingRight", dir.x > 0 ? true : false);
 
         if(isGrounded && Input.GetButtonDown("Jump"))
             dir.y += Mathf.Sqrt(jumpForce * -2f * gravityValue);
@@ -79,6 +89,11 @@ public class PlayerController : MonoBehaviour
             token.GetComponent<Rigidbody>().velocity = new Vector3(tokenVelocity * transform.forward.x, 0, 0);
             Destroy(token, 2);
         }
+        if(Input.GetMouseButton(1))
+        {
+            Attack();
+        }
+
     }
 
     private void FixedUpdate()
@@ -87,4 +102,13 @@ public class PlayerController : MonoBehaviour
 
         characterController.Move(dir * Time.fixedDeltaTime);
     }
+
+
+    public void Attack()
+    {
+
+
+
+    }
+
 }
