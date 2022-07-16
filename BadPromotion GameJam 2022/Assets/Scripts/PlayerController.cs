@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Enums;
 
 public class PlayerController : MonoBehaviour
@@ -63,9 +62,6 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (life <= 0)
-            Die();
-
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, ground, QueryTriggerInteraction.Ignore);
 
         if (isGrounded && dir.y < 0)
@@ -120,10 +116,8 @@ public class PlayerController : MonoBehaviour
         life -= dmg;
     }
 
-    void Die()
+    public float GetLife()
     {
-        Destroy(gameObject);
-        //SceneManager.LoadScene(2);
+        return life;
     }
-
 }
