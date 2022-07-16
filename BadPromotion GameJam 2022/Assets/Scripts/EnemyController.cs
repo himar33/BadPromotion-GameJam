@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
     public GameObject player;
-    public NavMeshAgent navAgent;
+    NavMeshAgent navAgent;
     public int alertArea;
 
     enum TypeEnemy { walker, flying };
@@ -22,6 +22,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float attackCooldown = 1.5f;
     float lasAttackCount = 0f;
 
+    [SerializeField] ParticleSystem deadPartSys;
 
     public GameObject[] waypoints;
     int patrolWP = 4;
@@ -34,6 +35,8 @@ public class EnemyController : MonoBehaviour
         navAgent.destination = waypoints[0].transform.position;
         patrolWP = waypoints.Length;
         state = State.patrolling;
+
+        deadPartSys.Pause();
     }
 
     // Update is called once per frame
@@ -113,8 +116,10 @@ public class EnemyController : MonoBehaviour
 
     void Die()
     {
+        Instantiate(deadPartSys, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
+
     void PatrolPattern()
     {
         patrolWP = (patrolWP + 1) % waypoints.Length;
