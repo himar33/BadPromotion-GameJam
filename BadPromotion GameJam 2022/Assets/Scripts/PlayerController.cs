@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float gravityValue = -9.81f;
     [SerializeField] private int life = 50;
     [SerializeField] private int damage = 5;
+    [SerializeField] private int collectables = 0;
 
     [Space]
 
@@ -103,6 +104,15 @@ public class PlayerController : MonoBehaviour
         dir.y += gravityValue * Time.fixedDeltaTime;
 
         characterController.Move(dir * Time.fixedDeltaTime);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Collectable")
+        {
+            collectables++;
+            Destroy(other.gameObject);
+        }
     }
 
 
