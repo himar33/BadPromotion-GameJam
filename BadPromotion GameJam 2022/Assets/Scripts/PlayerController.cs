@@ -2,15 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Enums;
+using System;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("Stats")]
-    [SerializeField] private float playerSpeed = 2.0f;
+
+    [Space]
+
+    [Header("Speeds")]
+    [SerializeField] private float rollTime = 20f;
+    [SerializeField] private float walkSpeed = 2.0f;
+    [SerializeField] private float runSpeed = 4.0f;
+    [SerializeField] private float ballSpeed = 6.0f;
+    [SerializeField] private float superBallSpeed = 8.0f;
+    [SerializeField] private float ultraBallSpeed = 10.0f;
+
+    [Space]
+
     [SerializeField] private float jumpForce = 1.0f;
     [SerializeField] private float gravityValue = -9.81f;
     [SerializeField] private int life = 50;
     [SerializeField] private int damage = 5;
+    [SerializeField] private int collectables = 0;
+    [SerializeField] public TMP_Text collectablesText;
 
     [Space]
 
@@ -26,10 +42,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float tokenVelocity;
 
     private CharacterController characterController;
-    private readonly PlayerState state;
-    private bool isGrounded;
+    private float currPlayerSpeed;
+    private PlayerState state;
+    private float currRollTime;
+    public bool isGrounded;
     private Vector3 dir;
     private float chargeTime;
+
 
     private Animator anim;
 
@@ -44,6 +63,9 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Need a Character Controller!");
         }
+
+        state = PlayerState.MOVE;
+        currPlayerSpeed = walkSpeed;
     }
 
     private void Update()
@@ -58,6 +80,7 @@ public class PlayerController : MonoBehaviour
             default:
                 break;
         }
+        collectablesText.text = collectables.ToString();
     }
 
     private void HandleMovement()
@@ -69,11 +92,10 @@ public class PlayerController : MonoBehaviour
             dir.y = 0f;
         }
 
-        dir.x = Input.GetAxis("Horizontal") * playerSpeed;
-
         if (dir.x != 0)
         {
             //anim.Play("Idle");
+
             transform.forward = new Vector3(dir.x, 0, 0);
         }
 
@@ -91,11 +113,40 @@ public class PlayerController : MonoBehaviour
             token.GetComponent<Rigidbody>().velocity = new Vector3(tokenVelocity * transform.forward.x, 0, 0);
             Destroy(token, 2);
         }
+
         if(Input.GetMouseButton(1))
         {
             Attack();
         }
 
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            if (currRollTime < rollTime * 3) currRollTime++;
+
+            if (currRollTime < rollTime)
+            {
+                currPlayerSpeed = runSpeed;
+            }
+            else if (currRollTime > rollTime && currRollTime < rollTime * 2)
+            {
+                currPlayerSpeed = ballSpeed;
+            }
+            else if (currRollTime > rollTime * 2 && currRollTime < rollTime * 3)
+            {
+                currPlayerSpeed = superBallSpeed;
+            }
+            else if (currRollTime >= rollTime * 3)
+            {
+                currPlayerSpeed = ultraBallSpeed;
+            }
+        }
+        else
+        {
+            currRollTime = 0;
+            currPlayerSpeed = walkSpeed;
+        }
+
+        dir.x = Input.GetAxis("Horizontal") * currPlayerSpeed;
     }
 
     private void FixedUpdate()
@@ -103,6 +154,15 @@ public class PlayerController : MonoBehaviour
         dir.y += gravityValue * Time.fixedDeltaTime;
 
         characterController.Move(dir * Time.fixedDeltaTime);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Collectable")
+        {
+            collectables++;
+            Destroy(other.gameObject);
+        }
     }
 
 
