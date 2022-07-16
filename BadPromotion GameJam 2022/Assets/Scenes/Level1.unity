@@ -446,6 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3df23aed788ca4e4a9f4d269106051f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  temperature: 0
 --- !u!1 &444376012
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,6 +1006,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dreamhouse
       objectReference: {fileID: 0}
+    - target: {fileID: 4705882817618183598, guid: 801739b4ec1314741a05ed6eb1e2c501,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.044
+      objectReference: {fileID: 0}
+    - target: {fileID: 4705882817618183598, guid: 801739b4ec1314741a05ed6eb1e2c501,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.087
+      objectReference: {fileID: 0}
     - target: {fileID: 8217538783720380905, guid: 801739b4ec1314741a05ed6eb1e2c501,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1049,6 +1060,38 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1336548039}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1336548042 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2890830203287218072, guid: 801739b4ec1314741a05ed6eb1e2c501,
+    type: 3}
+  m_PrefabInstance: {fileID: 1336548039}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1336548043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336548042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53bd44c23e0a50b47a7c81882aebac56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+--- !u!65 &1336548044
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336548042}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 11.637143, y: 0, z: 19.38158}
+  m_Center: {x: 0, y: -0.34966063, z: 0}
 --- !u!1 &1654082323
 GameObject:
   m_ObjectHideFlags: 0
