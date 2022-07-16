@@ -7,13 +7,18 @@ using UnityEngine.SceneManagement;
 public class MainMenuManager : MonoBehaviour
 {
     [SerializeField]private AudioClip menuMusic;
-    private AudioManager audio;
+    private AudioManager audioSource;
 
     private void Awake()
     {
-        audio = GetComponent<AudioManager>();
-        audio.PlayClip(menuMusic);
+        audioSource = GetComponent<AudioManager>();
     }
+
+    private void Start()
+    {
+        audioSource.PlayClip(menuMusic);
+    }
+
     public void PlayGame()
     {
         SceneManager.LoadScene(1);
