@@ -191,7 +191,7 @@ public class PlayerController : MonoBehaviour
         {
             audio.PlayClip(sfxClips[0]);
             collectables++;
-            Destroy(other.gameObject);
+            Destroy(other.transform.parent.gameObject);
         }
     }
 
