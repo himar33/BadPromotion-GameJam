@@ -12,16 +12,9 @@ public class Token : MonoBehaviour
         colors[2] = Color.blue;
         colors[3] = Color.yellow;
 
-        Color col = colors[Random.RandomRange(0, 4)];
+        Color col = colors[Random.Range(0, 4)];
         MeshRenderer ren = GetComponent<MeshRenderer>();
-        //Material mat = ren.GetComponent<Material>();
         ren.material.color = col;
-        //ren.material.SetColor("Color", col);
-        //mat.color = col;
-        //t.shader = Shader.Find("Universal Render Pipeline/Lit");
-        //mat.SetColor("_Color", col);
-
-
     }
     private void OnCollisionEnter(Collision collision)
     {

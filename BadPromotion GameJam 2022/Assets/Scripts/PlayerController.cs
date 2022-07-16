@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
     private float currPlayerSpeed;
     private PlayerState state;
     private float currRollTime;
-    private bool isGrounded;
+    public bool isGrounded;
     private Vector3 dir;
     private float chargeTime;
 
