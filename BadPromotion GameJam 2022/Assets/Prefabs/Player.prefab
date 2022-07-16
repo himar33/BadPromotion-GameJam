@@ -144,11 +144,13 @@ MonoBehaviour:
   sfxClips:
   - {fileID: 8300000, guid: 56736eaaf104208498393946a4724200, type: 3}
   jumpSFX:
-  - {fileID: 8300000, guid: 6ce8ae2f7f6f00a4bba7e8cd888a8304, type: 3}
-  - {fileID: 8300000, guid: 1d4db2e728af4c84ca0b5f9465c2b8ca, type: 3}
-  - {fileID: 8300000, guid: 91d6ae8c71978b84b87e009388620dca, type: 3}
-  - {fileID: 8300000, guid: e1d553083f303834b9c2d06158d10389, type: 3}
-  - {fileID: 8300000, guid: 5d5ea51436cddb944b50303d50139cb7, type: 3}
+  - {fileID: 8300000, guid: 2f1d44f772355c549a4d2bdcfc89d3ab, type: 3}
+  - {fileID: 8300000, guid: 6626670a3a9f9d14995f84c3a2c2f750, type: 3}
+  - {fileID: 8300000, guid: 0272b3c722416bb40a8c15d089d4392e, type: 3}
+  - {fileID: 8300000, guid: 46809e2ea0115354fb3c2c24adc24efb, type: 3}
+  tokenSFX:
+  - {fileID: 8300000, guid: 58d694b18e147e3479586f9a10d7b987, type: 3}
+  - {fileID: 8300000, guid: a021d759bd33c7644920098d3108f6fd, type: 3}
   isGrounded: 0
 --- !u!82 &216897187
 AudioSource:
