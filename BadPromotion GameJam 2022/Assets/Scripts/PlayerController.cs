@@ -95,6 +95,7 @@ public class PlayerController : MonoBehaviour
         if (dir.x != 0)
         {
             //anim.Play("Idle");
+
             transform.forward = new Vector3(dir.x, 0, 0);
         }
 
