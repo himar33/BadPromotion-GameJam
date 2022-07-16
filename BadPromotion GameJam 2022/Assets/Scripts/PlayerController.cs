@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Enums;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int life = 50;
     [SerializeField] private int damage = 5;
     [SerializeField] private int collectables = 0;
+    [SerializeField] public TMP_Text collectablesText;
 
     [Space]
 
@@ -59,6 +61,7 @@ public class PlayerController : MonoBehaviour
             default:
                 break;
         }
+        collectablesText.text = collectables.ToString();
     }
 
     private void HandleMovement()
