@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
     public GameObject player;
-    [SerializeField] GameObject target;
     NavMeshAgent navAgent;
     public int alertArea;
 
@@ -20,7 +19,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float attackCooldown = 1.5f;
     float lasAttackCount = 0f;
 
-    bool firstFrame = true;
 
     public GameObject[] waypoints;
     int patrolWP = 4;
@@ -30,7 +28,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {        
         navAgent = GetComponent<NavMeshAgent>();
-        target = waypoints[0];
+        navAgent.destination = waypoints[0].transform.position;
     }
 
     // Update is called once per frame
@@ -41,12 +39,10 @@ public class EnemyController : MonoBehaviour
         float distance = navAgent.remainingDistance;
 
         //Patrol
-        if ((!navAgent.pathPending && distance < 0.5f) && Vector3.Distance(transform.position, player.transform.position) > alertArea) PatrolPattern();
-        else
-        {
-            target = player;
-            Attak(distance);
-        }
+        if ((!navAgent.pathPending && distance < 0.5f) && Vector3.Distance(transform.position, player.transform.position) > alertArea) 
+            PatrolPattern();
+        else Attak(distance);
+       
     }
 
     private void Attak(float distance)
@@ -63,9 +59,9 @@ public class EnemyController : MonoBehaviour
                 lasAttackCount = attackCooldown;
             }
         }
-        if (navAgent.destination != target.transform.position)
+        if (navAgent.destination != player.transform.position)
         {
-            navAgent.destination = target.transform.position;
+            navAgent.destination = player.transform.position;
         }
 
     }
@@ -80,7 +76,7 @@ public class EnemyController : MonoBehaviour
 
     void Hit()
     {
-        target.GetComponent<PlayerController>().TakeDamage(damage);
+        player.GetComponent<PlayerController>().TakeDamage(damage);
         Debug.Log("Attacked!");
     }
 
