@@ -41,6 +41,9 @@ public class PlayerController : MonoBehaviour
     [Header("Token stats")]
     [SerializeField] private GameObject tokenPrefab;
     [SerializeField] private float tokenVelocity;
+    [SerializeField] private float shootRate = 1;
+    private float couldownAttack;
+    private bool onAttack = false;
 
     [Space]
 
@@ -83,6 +86,15 @@ public class PlayerController : MonoBehaviour
                 break;
         }
         if(collectablesText != null) collectablesText.text = collectables.ToString();
+        if (onAttack)
+        {
+            couldownAttack += Time.deltaTime;
+            if (couldownAttack > shootRate)
+            {
+                couldownAttack = 0;
+                onAttack = false;
+            }
+        }
     }
 
     private void HandleMovement()
@@ -120,14 +132,15 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && !onAttack)
         {
+            onAttack = true;
             audio.PlayRandomClip(tokenSFX);
             Vector3 pos = transform.position;
             pos.x += transform.forward.x;
             GameObject token = Instantiate(tokenPrefab, pos, transform.rotation);
             token.GetComponent<Rigidbody>().velocity = new Vector3(tokenVelocity * transform.forward.x, 0, 0);
-            Destroy(token, 2);
+            Destroy(token, 3);
         }
 
         if(Input.GetMouseButton(1))
