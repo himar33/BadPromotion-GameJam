@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController characterController;
     private readonly PlayerState state;
-    private bool isGrounded;
+    public bool isGrounded;
     private Vector3 dir;
     private float chargeTime;
 
