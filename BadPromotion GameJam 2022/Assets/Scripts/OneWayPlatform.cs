@@ -8,6 +8,8 @@ public class OneWayPlatform : MonoBehaviour
 
     BoxCollider collider;
     Collider playerCollider;
+    private float couldown = 0;
+    private bool falling = false;
     
 
     // Start is called before the first frame update
@@ -21,13 +23,29 @@ public class OneWayPlatform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!player.isGrounded/* && player.gameObject.transform.position.y >= transform.position.y + 0.1*/)
+        if (Input.GetKeyDown(KeyCode.S))
+            falling = true;
+        if (falling)
         {
-            Physics.IgnoreCollision(collider, playerCollider, true);
+            couldown += Time.deltaTime;
+            if (couldown > 0.5f)
+            {
+                couldown = 0;
+                falling = false;
+            }
         }
+        if(falling)
+            Physics.IgnoreCollision(collider, playerCollider, true);
         else
         {
-            Physics.IgnoreCollision(collider, playerCollider, false);
-        }
+            if (!player.isGrounded/* && player.gameObject.transform.position.y >= transform.position.y + 0.1*/)
+            {
+                Physics.IgnoreCollision(collider, playerCollider, true);
+            }
+            else
+            {
+                Physics.IgnoreCollision(collider, playerCollider, false);
+            }
+        }        
     }
 }
