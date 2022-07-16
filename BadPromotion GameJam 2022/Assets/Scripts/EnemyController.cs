@@ -33,6 +33,7 @@ public class EnemyController : MonoBehaviour
     {        
         navAgent = GetComponent<NavMeshAgent>();
         navAgent.destination = waypoints[0].transform.position;
+        navAgent.stoppingDistance = 2.1f;
         patrolWP = waypoints.Length;
         state = State.patrolling;
 
@@ -46,17 +47,17 @@ public class EnemyController : MonoBehaviour
         
         float distance = navAgent.remainingDistance;
 
-        if(Vector3.Distance(navAgent.transform.position, player.transform.position) < alertArea)
-        Debug.Log("AAAAAAAAAALEEEEEEEEEEEEEEEERTAAAAAAAAAAAAAAAAAAAAA");
-        Debug.Log("transform.position; " + navAgent.transform.position);
-        Debug.Log("player.transform.position; " + player.transform.position);
+        //if(Vector3.Distance(navAgent.transform.position, player.transform.position) < alertArea)
+        //Debug.Log("AAAAAAAAAALEEEEEEEEEEEEEEEERTAAAAAAAAAAAAAAAAAAAAA");
+        //Debug.Log("transform.position; " + navAgent.transform.position);
+        //Debug.Log("player.transform.position; " + player.transform.position);
         //Patrol
         if ((!navAgent.pathPending && distance < 0.5f) && Vector3.Distance(navAgent.transform.position, player.transform.position) > alertArea)
         {
             if(state == State.attaking) ChangeState();
             PatrolPattern();
         }
-        else Attak(distance);
+        else Attack(distance);
        
     }
 
@@ -78,7 +79,7 @@ public class EnemyController : MonoBehaviour
        
     }
 
-    private void Attak(float distance)
+    private void Attack(float distance)
     {
         if (state == State.patrolling) ChangeState();
         if (lasAttackCount > 0)

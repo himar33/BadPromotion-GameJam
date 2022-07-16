@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Enums;
 using System;
 using TMPro;
@@ -187,7 +188,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Collectable")
+        if (other.tag == "Collectable")
         {
             audio.PlayClip(sfxClips[0]);
             collectables++;
@@ -204,6 +205,16 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(int dmg)
     {
         life -= dmg;
+        Debug.Log(life);
+        if (life <= 0)
+            Die();
+    }
+
+    void Die()
+    {
+        // Play animation
+
+        SceneManager.LoadScene(1);
     }
 
     public float GetLife()

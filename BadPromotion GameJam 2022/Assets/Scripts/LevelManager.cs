@@ -22,13 +22,13 @@ public class LevelManager : MonoBehaviour
     void LoseCondition()
     {
         if (player.GetComponent<PlayerController>().GetLife() <= 0)
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(1);
     }
 
     // Win Condition
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == player)
-            SceneManager.LoadScene(3);
+            SceneManager.LoadScene(1);
     }
 }
