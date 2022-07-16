@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Enums;
 
 public class PlayerController : MonoBehaviour
@@ -9,6 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float playerSpeed = 2.0f;
     [SerializeField] private float jumpForce = 1.0f;
     [SerializeField] private float gravityValue = -9.81f;
+    [SerializeField] private int life = 50;
+    [SerializeField] private int damage = 5;
 
     [Space]
 
@@ -60,6 +63,9 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
+        if (life <= 0)
+            Die();
+
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, ground, QueryTriggerInteraction.Ignore);
 
         if (isGrounded && dir.y < 0)
@@ -107,8 +113,17 @@ public class PlayerController : MonoBehaviour
     public void Attack()
     {
 
+    }
 
+    public void TakeDamage(int dmg)
+    {
+        life -= dmg;
+    }
 
+    void Die()
+    {
+        Destroy(gameObject);
+        //SceneManager.LoadScene(2);
     }
 
 }
