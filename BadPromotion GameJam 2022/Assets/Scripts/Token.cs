@@ -18,7 +18,7 @@ public class Token : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        //if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             Destroy(gameObject);
             Debug.Log("Destroyed");
