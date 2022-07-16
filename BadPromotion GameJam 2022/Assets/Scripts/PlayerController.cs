@@ -213,8 +213,6 @@ public class PlayerController : MonoBehaviour
     void Die()
     {
         // Play animation
-
-        SceneManager.LoadScene(3);
     }
 
     public float GetLife()

@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     public GameObject player;
+    public GameObject hud;
+    public Animator transition;
+    public float transitionTime = 1.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +25,11 @@ public class LevelManager : MonoBehaviour
     void LoseCondition()
     {
         if (player.GetComponent<PlayerController>().GetLife() <= 0)
-            SceneManager.LoadScene(1);
+        {
+            hud.SetActive(false);
+            StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex));
+            //Destroy(player);
+        }
     }
 
     // Win Condition
@@ -30,11 +37,21 @@ public class LevelManager : MonoBehaviour
     {
         if (other.gameObject == player)
         {
-            if(SceneManager.GetActiveScene().name == "SampleScene")
-                SceneManager.LoadScene(0); 
+            if (hud != null) hud.SetActive(false);
+
+            if (SceneManager.GetActiveScene().name == "SampleScene")
+                StartCoroutine(LoadLevel(0));
             else
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);            
+                StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
         }
-            
+                        
+        //StartCoroutine(LoadLevel(1));
+    }
+
+    IEnumerator LoadLevel(int index)
+    {
+        transition.SetTrigger("FadingIn");
+        yield return new WaitForSeconds(transitionTime);
+        SceneManager.LoadScene(index);
     }
 }
