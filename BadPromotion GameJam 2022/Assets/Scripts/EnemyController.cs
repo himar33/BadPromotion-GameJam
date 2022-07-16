@@ -39,9 +39,10 @@ public class EnemyController : MonoBehaviour
         if (life <= 0) Die();
         
         float distance = navAgent.remainingDistance;
-
+        float distToTarget = Vector3.Distance(transform.position, player.transform.position);
         //Patrol
-        if ((!navAgent.pathPending && distance < 0.5f) && Vector3.Distance(transform.position, player.transform.position) > alertArea) PatrolPattern();
+        if ((!navAgent.pathPending && distance > 0.5f) && distToTarget > alertArea)
+            PatrolPattern();
         else
         {
             target = player;
