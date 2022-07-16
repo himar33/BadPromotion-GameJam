@@ -6,10 +6,13 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
     public GameObject player;
-    NavMeshAgent navAgent;
+    public NavMeshAgent navAgent;
     public int alertArea;
 
     enum TypeEnemy { walker, flying };
+    enum State { patrolling, attaking };
+
+    State state;
     [SerializeField] TypeEnemy typeEnemy;
 
 
@@ -29,6 +32,8 @@ public class EnemyController : MonoBehaviour
     {        
         navAgent = GetComponent<NavMeshAgent>();
         navAgent.destination = waypoints[0].transform.position;
+        patrolWP = waypoints.Length;
+        state = State.patrolling;
     }
 
     // Update is called once per frame
@@ -38,15 +43,41 @@ public class EnemyController : MonoBehaviour
         
         float distance = navAgent.remainingDistance;
 
+        if(Vector3.Distance(navAgent.transform.position, player.transform.position) < alertArea)
+        Debug.Log("AAAAAAAAAALEEEEEEEEEEEEEEEERTAAAAAAAAAAAAAAAAAAAAA");
+        Debug.Log("transform.position; " + navAgent.transform.position);
+        Debug.Log("player.transform.position; " + player.transform.position);
         //Patrol
-        if ((!navAgent.pathPending && distance < 0.5f) && Vector3.Distance(transform.position, player.transform.position) > alertArea) 
+        if ((!navAgent.pathPending && distance < 0.5f) && Vector3.Distance(navAgent.transform.position, player.transform.position) > alertArea)
+        {
+            if(state== State.attaking) ChangeState();
             PatrolPattern();
+        }
         else Attak(distance);
+       
+    }
+
+    private void ChangeState()
+    {
+        switch (state)
+        {
+            case State.patrolling:
+                state = State.attaking;
+                navAgent.ResetPath();
+                break;
+            case State.attaking:
+                state = State.patrolling;
+                navAgent.ResetPath();
+                break;
+            default:
+                break;
+        }
        
     }
 
     private void Attak(float distance)
     {
+        if (state == State.patrolling) ChangeState();
         if (lasAttackCount > 0)
         {
             lasAttackCount -= Time.deltaTime;
