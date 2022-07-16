@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     [Space]
 
     [SerializeField] private float jumpForce = 1.0f;
+    [SerializeField] private bool doubleJump = false;
     [SerializeField] private float gravityValue = -9.81f;
     [SerializeField] private int life = 50;
     [SerializeField] private int damage = 5;
@@ -87,6 +88,7 @@ public class PlayerController : MonoBehaviour
     private void HandleMovement()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, ground, QueryTriggerInteraction.Ignore);
+        if (isGrounded) doubleJump = false;
 
         if (isGrounded && dir.y < 0)
         {
@@ -103,10 +105,19 @@ public class PlayerController : MonoBehaviour
         //anim.SetFloat("speed", dir.x);
         //anim.SetBool("movingRight", dir.x > 0 ? true : false);
 
-        if (isGrounded && Input.GetButtonDown("Jump"))
+        if(Input.GetButtonDown("Jump"))
         {
-            dir.y += Mathf.Sqrt(jumpForce * -2f * gravityValue);
-            audio.PlayRandomClip(jumpSFX);
+            if(isGrounded)
+            {
+                dir.y += Mathf.Sqrt(jumpForce * -2f * gravityValue);
+                audio.PlayRandomClip(jumpSFX);
+            }
+            else if (!doubleJump)
+            {
+                doubleJump = true;
+                dir.y = Mathf.Sqrt(jumpForce * -1.5f * gravityValue);
+                audio.PlayRandomClip(jumpSFX);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.E))
