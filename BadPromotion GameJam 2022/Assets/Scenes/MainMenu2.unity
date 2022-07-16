@@ -309,7 +309,7 @@ MonoBehaviour:
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
-  m_Antialiasing: 0
+  m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -446,6 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3df23aed788ca4e4a9f4d269106051f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  temperature: 0
 --- !u!1 &444376012
 GameObject:
   m_ObjectHideFlags: 0
