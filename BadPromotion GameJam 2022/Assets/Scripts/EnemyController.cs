@@ -50,7 +50,7 @@ public class EnemyController : MonoBehaviour
         //Patrol
         if ((!navAgent.pathPending && distance < 0.5f) && Vector3.Distance(navAgent.transform.position, player.transform.position) > alertArea)
         {
-            if(state== State.attaking) ChangeState();
+            if(state == State.attaking) ChangeState();
             PatrolPattern();
         }
         else Attak(distance);
