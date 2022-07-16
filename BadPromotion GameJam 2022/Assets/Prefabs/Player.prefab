@@ -142,6 +142,12 @@ MonoBehaviour:
   tokenVelocity: 15
   sfxClips:
   - {fileID: 8300000, guid: 56736eaaf104208498393946a4724200, type: 3}
+  jumpSFX:
+  - {fileID: 8300000, guid: 6ce8ae2f7f6f00a4bba7e8cd888a8304, type: 3}
+  - {fileID: 8300000, guid: 1d4db2e728af4c84ca0b5f9465c2b8ca, type: 3}
+  - {fileID: 8300000, guid: 91d6ae8c71978b84b87e009388620dca, type: 3}
+  - {fileID: 8300000, guid: e1d553083f303834b9c2d06158d10389, type: 3}
+  - {fileID: 8300000, guid: 5d5ea51436cddb944b50303d50139cb7, type: 3}
   isGrounded: 0
 --- !u!82 &216897187
 AudioSource:
@@ -251,8 +257,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aff6b7345c2f9f546b8eef270c51c4ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lowPitch: 0.95
-  highPitch: 1.05
+  lowPitch: 0.8
+  highPitch: 1.2
 --- !u!1 &7458321755635876955
 GameObject:
   m_ObjectHideFlags: 0
