@@ -22,4 +22,9 @@ public class RestartLevel : MonoBehaviour
         if(collision.gameObject == player)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject == player)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }
