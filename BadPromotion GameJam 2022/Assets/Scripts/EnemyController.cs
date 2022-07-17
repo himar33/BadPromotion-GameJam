@@ -45,9 +45,7 @@ public class EnemyController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if (life <= 0) Die();
-        
+    {        
         float distance = Mathf.Abs(navAgent.remainingDistance);
 
         //Patrol
@@ -64,7 +62,7 @@ public class EnemyController : MonoBehaviour
             material.EnableKeyword("_EMISSION");
             Attack(distance);
         }
-       
+        if (life <= 0) Die();
     }
 
     private void ChangeState()

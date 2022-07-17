@@ -23,7 +23,7 @@ public class Token : MonoBehaviour
     {
         if (collision.transform.CompareTag("Enemy"))
         {
-            FindObjectOfType<HitStop>().Stop(0.2f);
+            FindObjectOfType<HitStop>().Stop(0.1f);
         }
 
         //if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
