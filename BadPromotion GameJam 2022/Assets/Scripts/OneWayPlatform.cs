@@ -38,7 +38,7 @@ public class OneWayPlatform : MonoBehaviour
             Physics.IgnoreCollision(collider, playerCollider, true);
         else
         {
-            if (!player.isGrounded/* && player.gameObject.transform.position.y >= transform.position.y + 0.1*/)
+            if (!player.isGrounded)
             {
                 Physics.IgnoreCollision(collider, playerCollider, true);
             }
