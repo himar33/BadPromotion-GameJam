@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Token : MonoBehaviour
 {
+    [SerializeField] private AudioClip hitSFX;
     void Start()
     {
         Color[] colors = new Color[4];
@@ -24,6 +25,7 @@ public class Token : MonoBehaviour
         if (collision.transform.CompareTag("Enemy"))
         {
             FindObjectOfType<HitStop>().Stop(0.1f);
+            FindObjectOfType<AudioManager>().PlayClip(hitSFX, false);
         }
 
         //if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))

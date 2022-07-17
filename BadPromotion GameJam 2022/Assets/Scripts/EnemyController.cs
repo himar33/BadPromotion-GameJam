@@ -15,7 +15,6 @@ public class EnemyController : MonoBehaviour
     State state;
     [SerializeField] TypeEnemy typeEnemy;
 
-
     [SerializeField] int life = 2;
     [SerializeField] int damage = 5;
 
@@ -115,6 +114,7 @@ public class EnemyController : MonoBehaviour
 
     void Hit()
     {
+        FindObjectOfType<HitStop>().Stop(0.1f);
         player.GetComponent<PlayerController>().TakeDamage(damage);
         Debug.Log("Attacked!");
     }
