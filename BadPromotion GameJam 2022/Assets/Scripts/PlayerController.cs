@@ -63,6 +63,7 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded;
     public Vector3 dir;
     private float chargeTime;
+    private float posZ;
 
 
     private Animator anim;
@@ -75,10 +76,13 @@ public class PlayerController : MonoBehaviour
         state = PlayerState.MOVE;
         currPlayerSpeed = walkSpeed;
         rollingAudio = transform.GetChild(3).GetComponent<AudioSource>();
+        posZ = transform.position.z;
     }
 
     private void Update()
     {
+        //transform.position = new Vector3(transform.position.x, transform.position.y, posZ);
+
         switch (state)
         {
             case PlayerState.MOVE:
@@ -99,6 +103,7 @@ public class PlayerController : MonoBehaviour
                 onAttack = false;
             }
         }
+
     }
 
     private void HandleMovement()
