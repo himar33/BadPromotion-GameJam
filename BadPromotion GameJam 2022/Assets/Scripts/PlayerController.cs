@@ -110,13 +110,19 @@ public class PlayerController : MonoBehaviour
 
         if (dir.x != 0)
         {
-            //anim.Play("Idle");
+            anim.Play("Idle");
 
             transform.forward = new Vector3(dir.x, 0, 0);
         }
 
-        //anim.SetFloat("speed", dir.x);
-        //anim.SetBool("movingRight", dir.x > 0 ? true : false);
+        if(dir.x > 0)
+        {
+            anim.SetFloat("speed", dir.x);
+            //int a = 0;
+            //a += 0;
+        }
+        anim.SetFloat("speed", dir.x);
+        anim.SetBool("movingRight", dir.x > 0 ? true : false);
 
         if(Input.GetButtonDown("Jump"))
         {
