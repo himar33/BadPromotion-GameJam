@@ -6,12 +6,16 @@ public class BallChecker : MonoBehaviour
 {
     public BallController ball;
 
+    void Update()
+    {
+        transform.position = new Vector3(ball.transform.position.x, transform.position.y, transform.position.z);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
             ball.allowMove = true;
-            //ball.GetComponent<Rigidbody>().isKinematic = false;
         }
     }
 
@@ -20,7 +24,6 @@ public class BallChecker : MonoBehaviour
         if (other.tag == "Player")
         {
             ball.allowMove = false;
-            //ball.GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 
