@@ -17,14 +17,16 @@ public class AudioManager : MonoBehaviour
         source.loop = loop;
     }
 
-    public void PlayClip(AudioClip clip)
+    public void PlayClip(AudioClip clip, bool loop)
     {
+        source.loop = loop;
         source.clip = clip;
         source.Play();
     }
 
-    public void PlayRandomClip(params AudioClip[] clips)
+    public void PlayRandomClip(bool loop, params AudioClip[] clips)
     {
+        source.loop = loop;
         source.pitch = Random.Range(lowPitch, highPitch);
         source.PlayOneShot(clips[Random.Range(0, clips.Length)]);
     }

@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip[] sfxClips;
     [SerializeField] private AudioClip[] jumpSFX;
     [SerializeField] private AudioClip[] tokenSFX;
+    [SerializeField] private AudioClip[] stepsSFX;
+    private AudioSource rollingAudio;
 
     private CharacterController characterController;
     private AudioManager audio;
@@ -72,6 +74,7 @@ public class PlayerController : MonoBehaviour
         audio = GetComponent<AudioManager>();
         state = PlayerState.MOVE;
         currPlayerSpeed = walkSpeed;
+        rollingAudio = transform.GetChild(3).GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -113,27 +116,25 @@ public class PlayerController : MonoBehaviour
             transform.forward = new Vector3(dir.x, 0, 0);
         }
 
-        anim.SetFloat("speed", dir.x);
-
         if(Input.GetButtonDown("Jump"))
         {
             if(isGrounded)
             {
                 dir.y += Mathf.Sqrt(jumpForce * -2f * gravityValue);
-                audio.PlayRandomClip(jumpSFX);
+                audio.PlayRandomClip(false, jumpSFX);
             }
             else if (!doubleJump)
             {
                 doubleJump = true;
                 dir.y = Mathf.Sqrt(jumpForce * -1.5f * gravityValue);
-                audio.PlayRandomClip(jumpSFX);
+                audio.PlayRandomClip(false, jumpSFX);
             }
         }
 
         if (Input.GetKeyDown(KeyCode.E) && !onAttack)
         {
             onAttack = true;
-            audio.PlayRandomClip(tokenSFX);
+            audio.PlayRandomClip(false, tokenSFX);
             Vector3 pos = transform.position;
             pos.x += transform.forward.x;
             GameObject token = Instantiate(tokenPrefab, pos, transform.rotation);
@@ -148,7 +149,14 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
+            if (!rollingAudio.isPlaying)
+            {
+                rollingAudio.Play();
+            }
+
             if (currRollTime < rollTime * 3) currRollTime++;
+
+            anim.SetBool("isRolling", true);
 
             if (currRollTime < rollTime)
             {
@@ -169,9 +177,15 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            rollingAudio.Stop();
+            anim.SetBool("isRolling", false);
             currRollTime = 0;
             currPlayerSpeed = walkSpeed;
         }
+
+        anim.SetFloat("speed", dir.x);
+        anim.SetFloat("speedY", dir.y);
+        anim.SetBool("isGrounded", isGrounded);
 
         dir.x = Input.GetAxis("Horizontal") * currPlayerSpeed;
     }
@@ -187,7 +201,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.tag == "Collectable")
         {
-            audio.PlayClip(sfxClips[0]);
+            audio.PlayClip(sfxClips[0], false);
             collectables++;
             Destroy(other.transform.parent.gameObject);
         }
@@ -215,5 +229,10 @@ public class PlayerController : MonoBehaviour
     public float GetLife()
     {
         return life;
+    }
+
+    public void StepHit()
+    {
+        audio.PlayRandomClip(false, stepsSFX);
     }
 }
