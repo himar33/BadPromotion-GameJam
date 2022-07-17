@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
+    public FadeToBlack fadeToBlack;
+
     [SerializeField]private AudioClip menuMusic;
     private AudioManager audioSource;
 
@@ -21,7 +23,8 @@ public class MainMenuManager : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene(1);
+        StartCoroutine(fadeToBlack.LoadLevel(1));
+        //SceneManager.LoadScene(1);
     }
 
     public void OnQuit()

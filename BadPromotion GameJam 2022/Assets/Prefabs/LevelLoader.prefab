@@ -70,6 +70,7 @@ GameObject:
   - component: {fileID: 7849156025638679708}
   - component: {fileID: 7849156025638679709}
   - component: {fileID: 7849156025638679706}
+  - component: {fileID: 417349505}
   m_Layer: 5
   m_Name: LevelLoader
   m_TagString: Untagged
@@ -159,6 +160,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &417349505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7849156025638679707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa40216c86adf9c4c95577ee3742de06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transition: {fileID: 7849156025541200599}
+  transitionTime: 1
 --- !u!1 &7849156026900229504
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,7 +259,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7849156026900229504}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
