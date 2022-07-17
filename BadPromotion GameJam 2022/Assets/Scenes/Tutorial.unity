@@ -2601,11 +2601,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelLoader
       objectReference: {fileID: 0}
-    - target: {fileID: 7849156025638679707, guid: aecd7fda6a6642f4a9908c7b057d1798,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7849156025638679711, guid: aecd7fda6a6642f4a9908c7b057d1798,
         type: 3}
       propertyPath: m_Pivot.x
@@ -6062,6 +6057,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 248199030386212255, guid: da9687ad419c9624ba526d47f9106f0c,
+        type: 3}
+      propertyPath: collectablesText
+      value: 
+      objectReference: {fileID: 2108131151}
     - target: {fileID: 359020020706663024, guid: da9687ad419c9624ba526d47f9106f0c,
         type: 3}
       propertyPath: m_RootOrder
@@ -7011,8 +7011,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 558a26f74ba4a584ab7e964aa12c4828, type: 2}
+  m_sharedMaterial: {fileID: -4890892672703625079, guid: 558a26f74ba4a584ab7e964aa12c4828,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
