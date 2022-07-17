@@ -19,7 +19,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        audioManager.PlayClip(levelMusic);
+        audioManager.PlayClip(levelMusic, true);
     }
 
     // Update is called once per frame

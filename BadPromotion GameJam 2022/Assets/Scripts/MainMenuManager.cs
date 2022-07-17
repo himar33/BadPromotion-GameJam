@@ -18,7 +18,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
-        audioSource.PlayClip(menuMusic);
+        audioSource.PlayClip(menuMusic, true);
     }
 
     public void PlayGame()
