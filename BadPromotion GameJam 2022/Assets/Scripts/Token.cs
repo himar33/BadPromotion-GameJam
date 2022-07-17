@@ -21,6 +21,11 @@ public class Token : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.transform.CompareTag("Enemy"))
+        {
+            FindObjectOfType<HitStop>().Stop(0.2f);
+        }
+
         //if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             Destroy(gameObject);
