@@ -27,5 +27,16 @@ public class CameraController : MonoBehaviour
         float originY = /*transform.position.y + */player.transform.position.y;
         float y = Mathf.SmoothDamp(/*0.6f +*/ originY /** 0.4f*/, transform.position.y, ref vel, 0.5f);
         transform.position = new Vector3(x, y, transform.position.z);
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "CamTrigger")
+        {
+            Vector3 ea = transform.localEulerAngles;
+            transform.localEulerAngles = new Vector3(ea.x, ea.y + 5, ea.z);
+
+        }
     }
 }
