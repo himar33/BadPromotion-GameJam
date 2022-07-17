@@ -44,7 +44,7 @@ public class LevelManager : MonoBehaviour
         {
             if (hud != null) hud.SetActive(false);
 
-            if (SceneManager.GetActiveScene().name == "SampleScene")
+            if (SceneManager.GetActiveScene().name == "Level2")
                 StartCoroutine(fadeToBlack.LoadLevel(0));
             else
                 StartCoroutine(fadeToBlack.LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
