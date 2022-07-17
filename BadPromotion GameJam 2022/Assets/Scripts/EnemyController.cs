@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] ParticleSystem deadPartSys;
 
     public GameObject[] waypoints;
-    int patrolWP = 4;
+    int patrolWP;
 
 
     // Start is called before the first frame update
@@ -33,7 +33,7 @@ public class EnemyController : MonoBehaviour
     {        
         navAgent = GetComponent<NavMeshAgent>();
         navAgent.destination = waypoints[0].transform.position;
-        navAgent.stoppingDistance = 2.1f;
+        navAgent.stoppingDistance = 1.5f;
         patrolWP = waypoints.Length;
         state = State.patrolling;
 
@@ -45,17 +45,20 @@ public class EnemyController : MonoBehaviour
     {
         if (life <= 0) Die();
         
-        float distance = navAgent.remainingDistance;
+        float distance = Mathf.Abs(navAgent.remainingDistance);
 
         //if(Vector3.Distance(navAgent.transform.position, player.transform.position) < alertArea)
         //Debug.Log("AAAAAAAAAALEEEEEEEEEEEEEEEERTAAAAAAAAAAAAAAAAAAAAA");
         //Debug.Log("transform.position; " + navAgent.transform.position);
-        //Debug.Log("player.transform.position; " + player.transform.position);
+         Debug.Log("player.transform.position; " + Mathf.Abs(Vector3.Distance(player.transform.position, navAgent.transform.position)));
         //Patrol
-        if ((!navAgent.pathPending && distance < 0.5f) && Vector3.Distance(navAgent.transform.position, player.transform.position) > alertArea)
+        if (Mathf.Abs(Vector3.Distance(player.transform.position, navAgent.transform.position)) > alertArea)
         {
-            if(state == State.attaking) ChangeState();
-            PatrolPattern();
+            if (!navAgent.pathPending && distance < navAgent.stoppingDistance)
+            {
+                // if (state == State.attaking) ChangeState();
+                PatrolPattern();
+            }
         }
         else Attack(distance);
        
@@ -81,7 +84,7 @@ public class EnemyController : MonoBehaviour
 
     private void Attack(float distance)
     {
-        if (state == State.patrolling) ChangeState();
+       // if (state == State.patrolling) ChangeState();
         if (lasAttackCount > 0)
         {
             lasAttackCount -= Time.deltaTime;
@@ -123,8 +126,9 @@ public class EnemyController : MonoBehaviour
 
     void PatrolPattern()
     {
-        patrolWP = (patrolWP + 1) % waypoints.Length;
-        Seek(waypoints[patrolWP].transform.position);
+        //if (navAgent.remainingDistance < 0.5)
+            patrolWP = (patrolWP+1) % waypoints.Length;
+         Seek(waypoints[patrolWP].transform.position);
     }
 
     void Seek(Vector3 targetPosition)
