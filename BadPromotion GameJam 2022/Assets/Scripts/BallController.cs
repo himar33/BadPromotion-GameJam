@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
-    [SerializeField ]Rigidbody rb;
+    public Rigidbody rb;
     public GameObject player;
-    public float distance;
-    public Vector3 force;
+    //public float distance;
+    public float maxSpeed;
+    public bool allowMove;
 
     PlayerController playerController;
     float playerDir;
@@ -20,8 +21,7 @@ public class BallController : MonoBehaviour
         collider = GetComponent<SphereCollider>();
         playerController = player.GetComponent<PlayerController>();
         playerDir = playerController.dir.x;
-        //rb.AddTorque(new Vector3(0, 0, 1), ForceMode.Force);
-
+        allowMove = false;
     }
 
     // Update is called once per frame
@@ -34,11 +34,13 @@ public class BallController : MonoBehaviour
         Vector3 p = new Vector3(collider.center.x + collider.radius, collider.center.y + collider.radius, collider.center.z + collider.radius);
         float d = Vector3.Distance(p, player.transform.position);
         //float d = p.x - player.transform.position.x;
-        Debug.Log(d.ToString() + distance.ToString());
-        if (Mathf.Abs(d) <= distance)
+        //Debug.Log(d.ToString() + distance.ToString());
+        //if (Mathf.Abs(d) <= distance)
+        if (allowMove)
         {
             playerDir = playerController.dir.x;
             rb.AddTorque(new Vector3(0, 0, 2 * -playerDir), ForceMode.Force);
+            Mathf.Clamp(rb.velocity.x, -maxSpeed, maxSpeed);
         }
 
     }
@@ -48,7 +50,7 @@ public class BallController : MonoBehaviour
         if (collision.transform.tag == "Player")
         {
             //rb.AddTorque(new Vector3(1000, 0, 0), ForceMode.VelocityChange);
-            rb.AddTorque(new Vector3(0, 0, 10 * -playerDir), ForceMode.Force);
+            //rb.AddTorque(new Vector3(0, 0, 10 * -playerDir), ForceMode.Force);
         }
     }
 
