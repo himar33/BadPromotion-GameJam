@@ -16,6 +16,18 @@ public class MainMenuManager : MonoBehaviour
         audioSource = GetComponent<AudioManager>();
     }
 
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            StartCoroutine(fadeToBlack.LoadLevel(1));
+        }
+        else if(Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
+
     private void Start()
     {
         audioSource.PlayClip(menuMusic, true);
@@ -23,8 +35,8 @@ public class MainMenuManager : MonoBehaviour
 
     public void PlayGame()
     {
-        StartCoroutine(fadeToBlack.LoadLevel(1));
-        //SceneManager.LoadScene(1);
+        //StartCoroutine(fadeToBlack.LoadLevel(1));
+        SceneManager.LoadScene(1);
     }
 
     public void OnQuit()

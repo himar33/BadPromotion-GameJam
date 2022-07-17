@@ -5875,6 +5875,11 @@ PrefabInstance:
       propertyPath: life
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4816179775976648783, guid: 0a277b3608800bc459f1e8f47cdd5acb,
+        type: 3}
+      propertyPath: collectablesText
+      value: 
+      objectReference: {fileID: 2108131151}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a277b3608800bc459f1e8f47cdd5acb, type: 3}
 --- !u!1 &1615645652

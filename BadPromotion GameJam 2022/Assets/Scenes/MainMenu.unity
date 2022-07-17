@@ -336,6 +336,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelLoader
       objectReference: {fileID: 0}
+    - target: {fileID: 7849156025638679707, guid: aecd7fda6a6642f4a9908c7b057d1798,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7849156025638679711, guid: aecd7fda6a6642f4a9908c7b057d1798,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1121,7 +1126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 5126333615132630049}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1654082326
@@ -7288,13 +7293,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'EXIT
+  m_text: 'Escape to Exit
 
 '
   m_isRightToLeft: 0
@@ -7360,7 +7365,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -110.27676, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -7518,13 +7523,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: START
+  m_text: Space to Start
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 558a26f74ba4a584ab7e964aa12c4828, type: 2}
   m_sharedMaterial: {fileID: -4890892672703625079, guid: 558a26f74ba4a584ab7e964aa12c4828,
@@ -7588,7 +7593,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0.7889098, w: 0}
+  m_margin: {x: 0, y: 0, z: -89.4864, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -7879,7 +7884,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Roll the Dice
+  m_text: Mr. Dice
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3dc3297ae3495f1438a9d2477c2b1952, type: 2}
   m_sharedMaterial: {fileID: 523799491903238407, guid: 3dc3297ae3495f1438a9d2477c2b1952,
@@ -7943,7 +7948,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -1.1361084, y: 0, z: -0.8858032, w: -0.26678467}
+  m_margin: {x: -1.1361084, y: 0, z: 246.6399, w: -0.26678467}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
