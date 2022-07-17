@@ -6,6 +6,9 @@ public class BallController : MonoBehaviour
 {
     [SerializeField ]Rigidbody rb;
     public GameObject player;
+    public float distance;
+    public Vector3 force;
+
     PlayerController playerController;
     float playerDir;
     SphereCollider collider;
@@ -31,8 +34,8 @@ public class BallController : MonoBehaviour
         Vector3 p = new Vector3(collider.center.x + collider.radius, collider.center.y + collider.radius, collider.center.z + collider.radius);
         float d = Vector3.Distance(p, player.transform.position);
         //float d = p.x - player.transform.position.x;
-        Debug.Log(d);
-        if (Mathf.Abs(d) <= 52)
+        Debug.Log(d.ToString() + distance.ToString());
+        if (Mathf.Abs(d) <= distance)
         {
             playerDir = playerController.dir.x;
             rb.AddTorque(new Vector3(0, 0, 2 * -playerDir), ForceMode.Force);
