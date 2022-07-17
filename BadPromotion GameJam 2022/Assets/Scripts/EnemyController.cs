@@ -27,6 +27,7 @@ public class EnemyController : MonoBehaviour
     public GameObject[] waypoints;
     int patrolWP;
 
+    Material material;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,8 @@ public class EnemyController : MonoBehaviour
         state = State.patrolling;
 
         deadPartSys.Pause();
+
+        material = GetComponent<MeshRenderer>().material;
     }
 
     // Update is called once per frame
@@ -47,20 +50,20 @@ public class EnemyController : MonoBehaviour
         
         float distance = Mathf.Abs(navAgent.remainingDistance);
 
-        //if(Vector3.Distance(navAgent.transform.position, player.transform.position) < alertArea)
-        //Debug.Log("AAAAAAAAAALEEEEEEEEEEEEEEEERTAAAAAAAAAAAAAAAAAAAAA");
-        //Debug.Log("transform.position; " + navAgent.transform.position);
-         Debug.Log("player.transform.position; " + Mathf.Abs(Vector3.Distance(player.transform.position, navAgent.transform.position)));
         //Patrol
         if (Mathf.Abs(Vector3.Distance(player.transform.position, navAgent.transform.position)) > alertArea)
         {
             if (!navAgent.pathPending && distance < navAgent.stoppingDistance)
             {
-                // if (state == State.attaking) ChangeState();
+                material.DisableKeyword("_EMISSION");
                 PatrolPattern();
             }
         }
-        else Attack(distance);
+        else
+        {
+            material.EnableKeyword("_EMISSION");
+            Attack(distance);
+        }
        
     }
 
