@@ -9,6 +9,19 @@ public class LevelManager : MonoBehaviour
     public GameObject hud;
     public FadeToBlack fadeToBlack;
 
+    [SerializeField] private AudioClip levelMusic;
+    private AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GetComponent<AudioManager>();
+    }
+
+    private void Start()
+    {
+        audioManager.PlayClip(levelMusic);
+    }
+
     // Update is called once per frame
     void Update()
     {

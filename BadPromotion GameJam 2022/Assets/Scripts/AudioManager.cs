@@ -9,15 +9,18 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] private float lowPitch = 0.95f;
     [SerializeField] private float highPitch = 1.05f;
+    [SerializeField] private bool loop = false;
 
     private void Awake()
     {
         source = GetComponent<AudioSource>();
+        source.loop = loop;
     }
 
     public void PlayClip(AudioClip clip)
     {
-        source.PlayOneShot(clip);
+        source.clip = clip;
+        source.Play();
     }
 
     public void PlayRandomClip(params AudioClip[] clips)
